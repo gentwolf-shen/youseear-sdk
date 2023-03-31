@@ -1,6 +1,6 @@
 # YouSeeAR WebAR SDK
 
-版本： 1.0.0 (首发公测版)
+版本： 1.1.0
 
 ## 使用说明
 
@@ -71,7 +71,7 @@ this.youSeeAR.on('Ready', (m) => {
     this.camera.updateProjectionMatrix();
 
     // 加载特征数据，特征数据的生成请访问 www.YouSeeAR.com
-    this.youSeeAR.loadMarker('../../../features/feature.dat');
+    this.youSeeAR.loadMarker(['../../../features/feature.dat']);
 });
 
 // 域名验证状态事件
@@ -85,7 +85,7 @@ this.youSeeAR.on('License', (status) => {
 
 // 特征数据加载事件
 this.youSeeAR.on('MarkerLoad', (markers) => {
-    // markers为数组，当前版本仅支持一个跟踪目标
+    // markers数组，
     // 设置anchor在容器中居中
     this.anchor.position.x = markers[0].x;
     this.anchor.position.y = markers[0].y;
@@ -99,14 +99,14 @@ this.youSeeAR.on('MarkerLoadError', (err) => {
     console.info(err);
 });
 
-// 识别到目标事件，当前版本仅支持一个跟踪目标
+// 识别到目标事件，1.1.0版本开始仅支持多个跟踪目标，i为加载特征数据的数组索引
 this.youSeeAR.on('TargetFound', (i) => {
     // 识别到目标后，设置为可视状态
     this.root.visible = true;
     console.info(`found ${i}`);
 });
 
-// 目标丢失事件
+// 目标丢失事件，i为加载特征数据的数组索引
 this.youSeeAR.on('TargetLost', (i) => {
     // 目标丢失后，设置为不可视状态
     // this.root.visible = false;
